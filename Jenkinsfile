@@ -1,6 +1,8 @@
 // Déclaration du pipeline Jenkins
 pipeline {
-    agent any // Utilise n'importe quel agent disponible sur Jenkins
+    agent {
+        agent 'Windows'
+    } // Utilise n'importe quel agent disponible sur Jenkins
 
     environment {
         // Nom d'utilisateur Docker Hub
@@ -43,7 +45,7 @@ pipeline {
             steps {
                 script {
                     // Utilisation d’identifiants Jenkins (à configurer via "credentials")
-                    withCredentials([usernamePassword(credentialsId: '6cd1a3a7-f3f8-42c2-a87d-9a08685a6cd3', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASSWORD')]){
+                    withCredentials([usernamePassword(credentialsId: 'masstest', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASSWORD')]){
                         bat """
                         docker login -u %DOCKER_USER% -p %DOCKER_PASSWORD%
                         echo Docker login successful
